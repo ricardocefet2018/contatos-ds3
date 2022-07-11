@@ -5,5 +5,89 @@
 </ion-header>
 
 <ion-content>
-
+  <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input type="text" formControlName="nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Data de nascimento</ion-label>
+      <ion-input
+        type="text"
+        formControlName="dataNascimento"
+        [brmasker]="{mask: '99/99/9999'}"
+        maxLength="10"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">CPF</ion-label>
+      <ion-input
+        type="text"
+        formControlName="cpf"
+        [brmasker]="{mask: '999.999.999-99'}"
+        maxLength="14"
+      ></ion-input>
+      <div
+        class="erroValidacao"
+        *ngIf="formGroup.get('cpf').dirty || formGroup.get('cpf').touched"
+      >
+        <p
+          *ngIf="formGroup.get('cpf').errors?.minLength || formGroup.get('cpf').errors?.maxLength"
+        >
+          Favor informar todos os dígitos
+        </p>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Celular</ion-label>
+      <ion-input
+        type="text"
+        formControlName="celular"
+        [brmasker]="{mask: '(99) 99999-9999'}"
+        maxLength="15"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">E-mail</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+      <div
+        class="erroValidacao"
+        *ngIf="formGroup.get('email').dirty || formGroup.get('email').touched"
+      >
+        <p *ngIf="formGroup.get('email').errors?.email">E-mail inválido</p>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">CEP</ion-label>
+      <ion-input
+        type="text"
+        formControlName="cep"
+        [brmasker]="{mask: '99999-999'}"
+        (ionBlur)="preencherEndereco()"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Rua</ion-label>
+      <ion-input type="text" formControlName="rua"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Bairro</ion-label>
+      <ion-input type="text" formControlName="bairro"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Cidade</ion-label>
+      <ion-input type="text" formControlName="cidade"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Estado</ion-label>
+      <ion-input type="text" formControlName="estado"></ion-input>
+    </ion-item>
+    <ion-button
+      type="submit"
+      expand="block"
+      color="primary"
+      [disabled]="!formGroup.valid"
+      >Salvar</ion-button
+    >
+  </form>
 </ion-content>
